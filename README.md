@@ -1,1 +1,1 @@
-"# Burrito-App" 
+"Peg Solitaire Solver"
