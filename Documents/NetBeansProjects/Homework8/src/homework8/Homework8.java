@@ -1,23 +1,15 @@
-//import java.util.Arrays;
 package homework8;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Homework8 {
-  // Constants
-  private static final Integer ARRAY_SIZE = 15; // 15 postitions
+  private static final Integer SIZE = 15; // 15 postitions
   private static final Integer OVER = 0;    
   private static final Integer TO = 1;
-  private static final Integer START_PEG = 0;
-  private static final char PRESENT_CHAR = 'x'; // peg is occupied 
-  private static final char MISSING_CHAR = '.'; // peg is empty
-
-  //     0
-  //    1 2
-  //   3 4 5
-  //  6 7 8 9
-  // A B C D E
-  //
+  private static final Integer START = 0;
+  private static final char OCCUPY = 'x'; // peg is occupied 
+  private static final char MISSING = '.'; // peg is empty
+  
   // array of available moves
   private static final Integer[][][] MOVES = {
     { {1, 3}, {2, 5} }, // 0
@@ -37,50 +29,48 @@ public class Homework8 {
     { {9, 5}, {13, 12} }  // 14
   };
 
-  private boolean[] board  = new boolean[ARRAY_SIZE];
+  private boolean[] board  = new boolean[SIZE];
 
   // The current running solution 
   private List<String> solution = new ArrayList<String>();
 
   private boolean solved = false;
 
-  // Default constructor
+  // constructor
   public Homework8() {
     reset();
   }
 
-  // Return the character this peg should be in string
+  // returns "x" or "o"
   private char getDrawChar(Integer peg) {
-    return (occupied(peg)) ? PRESENT_CHAR : MISSING_CHAR;
+    return (occupied(peg)) ? OCCUPY : MISSING;
   }
 
   // Draw the board to a string
   private String drawBoard() {
-    String boardString;
+    String board;
 
-    char[] toDraw = new char[ARRAY_SIZE];
-
-    for (int i = 0; i < ARRAY_SIZE; i++) {
-      toDraw[i] = getDrawChar(i);
+    char[] draw = new char[SIZE];
+ 
+    for (int i = 0; i < SIZE; i++) {
+      draw[i] = getDrawChar(i);
     }
     
-    boardString  = "     " + toDraw[0] + "\n";
-    boardString += "    "  + toDraw[1]  + " " + toDraw[2] + "\n";
-    boardString += "   "   + toDraw[3]  + " " + toDraw[4]  + " " + toDraw[5] + "\n";
-    boardString += "  "    + toDraw[6]  + " " + toDraw[7]  + " " + toDraw[8]  + " "
-                           + toDraw[9]  + "\n";
-    boardString += " "     + toDraw[10] + " " + toDraw[11] + " " + toDraw[12] + " "
-                           + toDraw[13] + " " + toDraw[14] + "\n";
+    board  = "     " + draw[0] + "\n";
+    board += "    "  + draw[1]  + " " + draw[2] + "\n";
+    board += "   "   + draw[3]  + " " + draw[4]  + " " + draw[5] + "\n";
+    board += "  "    + draw[6]  + " " + draw[7]  + " " + draw[8]  + " " + draw[9]  + "\n";
+    board += " "     + draw[10] + " " + draw[11] + " " + draw[12] + " " + draw[13] + " " + draw[14] + "\n";
 
-    return boardString;
+    return board;
   }
 
-  private boolean isInvalidPegIndex(Integer peg) {
-    return (peg < 0 || peg >= ARRAY_SIZE);
+  private boolean invalidPeg(Integer peg) {
+    return (peg < 0 || peg >= SIZE);
   }
 
   private boolean occupied(Integer peg) {
-    if (isInvalidPegIndex(peg)) {
+    if (invalidPeg(peg)) {
       return false;
     }
 
@@ -103,7 +93,7 @@ public class Homework8 {
   }
 
   private void updatePeg(Integer peg, boolean set) {
-    if (isInvalidPegIndex(peg)) {
+    if (invalidPeg(peg)) {
       return;
     }
     
@@ -121,7 +111,7 @@ public class Homework8 {
   private void reset() {
     solution.clear();
 
-    for (int i = 0; i < ARRAY_SIZE; i++) {
+    for (int i = 0; i < SIZE; i++) {
       addPeg(i);
     }
   }
@@ -136,7 +126,7 @@ public class Homework8 {
   }
 
   private void initializeBoard() {
-    initializeBoard(START_PEG);
+    initializeBoard(START);
   }
 
   // turns solution into a string
@@ -151,9 +141,9 @@ public class Homework8 {
   }
   
   public String play(Integer peg) {
-    if (isInvalidPegIndex(peg)) {
+    if (invalidPeg(peg)) {
       System.out.println("Invalid peg");
-      peg = START_PEG;
+      peg = START;
     }
     
     System.out.println("     " + peg + "    ");
@@ -194,7 +184,7 @@ public class Homework8 {
     }
 
     
-    for (int peg = 0; peg < ARRAY_SIZE; peg++)
+    for (int peg = 0; peg < SIZE; peg++)
     {
       if (empty(peg)) 
       {
@@ -244,7 +234,6 @@ public class Homework8 {
     {
       String solution = boardGame.play(peg);
       System.out.println(solution);
-        //print(solution);
     }
   }
 }
